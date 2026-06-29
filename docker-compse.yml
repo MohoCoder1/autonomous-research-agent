@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ai_agent_ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    restart: unless-stopped
+    # healthcheck for make sure the ollama is healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434/"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  agent-app:
+    build: .
+    container_name: ai_agent_app
+    depends_on:
+      ollama:
+        condition: service_healthy # wait for ollama to be healthy
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - OLLAMA_MODEL_NAME=llama3
+    volumes:
+      - ./outputs:/app/outputs
+    restart: on-failure
+
+volumes:
+  ollama_data:

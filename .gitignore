@@ -1,0 +1,29 @@
+# Environment Variables & Secrets
+.env
+.env.local
+.env.*.local
+*.env
+
+# Python Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+.pytest_cache/
+
+# Python Caches & Compiled Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Operating System Specific Files
+.DS_Store
+Thumbs.db
+
+# IDEs & Code Editors
+.vscode/
+.idea/
+
+# Docker Logs & Temp Files
+*.log
+docker-compose.override.yml
