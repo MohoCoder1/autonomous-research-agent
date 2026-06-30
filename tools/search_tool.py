@@ -9,7 +9,7 @@ class WebSearchTool:
     and log internal transitions in a short-term scratchpad memory.
     """
 
-    # [bonus] short-term memory to save steps taken by the tool
+    # short-term memory to save steps taken by the tool
     scratchpad = []
 
     @classmethod
@@ -25,12 +25,12 @@ class WebSearchTool:
         self.trusted_domains = ["medium.com", "github.com", "arxiv.org", "techcrunch.com", "wikipedia.org", "reuters.com"]
 
     def log_step(self, message: str):
-        """[bonus] log steps taken by the tool"""
+        """log steps taken by the tool"""
         timestamp = datetime.now().strftime("%H:%M:%S")
         WebSearchTool.scratchpad.append(f"[{timestamp}] {message}")
 
     def evaluate_and_rank_sources(self, raw_results: list) -> list:
-        """[bonus] rank sources by the quality of resources"""
+        """rank sources by the quality of resources"""
         if not raw_results:
             return []
 
@@ -47,7 +47,7 @@ class WebSearchTool:
                 score += 20
                 self.log_step(f"Positive score for valid domain: {url[:30]}...")
                 
-            # 2. content freshness evaluation (special bonus for content of the current year 2026 and 2025)
+            # 2. content freshness evaluation (special for content of the current year 2026 and 2025)
             if "2026" in snippet or "2026" in url:
                 score += 25
             elif "2025" in snippet or "2025" in url:
@@ -85,7 +85,7 @@ class WebSearchTool:
                         }
                     )
             
-            # apply bonus system: ranking and quality filtering of resources
+            # ranking and quality filtering of resources
             final_ranked_results = self.evaluate_and_rank_sources(results_list)
             return final_ranked_results
             

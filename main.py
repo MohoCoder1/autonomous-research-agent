@@ -43,7 +43,7 @@ def save_report_with_bonus_modes(data: dict, filename: str, mode: str = "detaile
         markdown_content += "## Agent chain of thought plan\n"
         markdown_content += f"```text\n{data.get('agent_plan', 'No logs')}\n```\n"
         
-        # bonus: adding scratchpad memory logs to the end of the markdown report
+        # adding scratchpad memory logs to the end of the markdown report
         if scratchpad_logs:
             markdown_content += "\n---\n"
             markdown_content += "## Scratchpad memory of the tool and sequence of tasks\n"
@@ -108,7 +108,7 @@ if __name__ == "__main__":
         save_report_with_bonus_modes(result_data, file_base_name, mode="short")
         save_report_with_bonus_modes(result_data, file_base_name, mode="json_schema")
         
-        print("\n All tasks and bonus modes executed successfully!")
+        print("\n All tasks and modes executed successfully!")
         
     except Exception as e:
         print(f"\n Critical Error during main execution: {str(e)}")
