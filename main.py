@@ -97,28 +97,14 @@ def save_report_with_bonus_modes(data: dict, filename: str, mode: str = "detaile
 if __name__ == "__main__":
     # target_topic = "Impact of Artificial Intelligence on the software development job market landscape in 2026"
     target_topic = "Next-generation solid-state battery updates in 2026"
-
-    # Clear scratchpad before starting a new topic research
-    WebSearchTool.clear_scratchpad()
-    
-    search_tool_instance = WebSearchTool()
-    search_tool_instance.log_step("Starting the orchestration process in the main system file.")
     
     orchestrator = AgentOrchestrator()
     
-    if hasattr(orchestrator.llm, 'temperature'):
-        orchestrator.llm.temperature = 0.1
-    elif hasattr(orchestrator.llm, 'model_kwargs'):
-        orchestrator.llm.model_kwargs = {"temperature": 0.1}
-    
     try:
         result_data = orchestrator.run(target_topic)
-        search_tool_instance.log_step("Final reasoning engine response received.")
-        
-
         file_base_name = "solid_state_battery_report.md" if "battery" in target_topic.lower() else "ai_job_market_report.md"
         
-        save_report_with_bonus_modes(result_data, file_base_name, mode="detailed", scratchpad_logs=search_tool_instance.scratchpad)
+        save_report_with_bonus_modes(result_data, file_base_name, mode="detailed", scratchpad_logs=orchestrator.search_tool.scratchpad)
         save_report_with_bonus_modes(result_data, file_base_name, mode="short")
         save_report_with_bonus_modes(result_data, file_base_name, mode="json_schema")
         

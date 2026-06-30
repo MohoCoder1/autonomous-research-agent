@@ -1,8 +1,4 @@
 import pytest
-import sys
-import os
-
-
 from tools.search_tool import WebSearchTool
 from tools.crawler_tool import WebCrawlerTool
 from agent.orchestrator import AgentOrchestrator

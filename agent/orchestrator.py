@@ -1,5 +1,3 @@
-import os
-import sys
 from typing import Any, Dict, Optional
 
 
@@ -21,6 +19,7 @@ class AgentOrchestrator:
         self.llm = OllamaLLM(
             base_url=Config.OLLAMA_BASE_URL,
             model=Config.OLLAMA_MODEL_NAME,
+            temperature=0.1,
         )
         self.search_tool = WebSearchTool()
         self.crawler_tool = WebCrawlerTool()
@@ -28,6 +27,14 @@ class AgentOrchestrator:
     def run(self, topic: str) -> Optional[Dict[str, Any]]:
         """Run the whole research process for the given topic automatically."""
         try:
+
+
+            # Clear scratchpad
+            WebSearchTool.clear_scratchpad()
+             
+            # Log the start of the orchestration process
+            self.search_tool.log_step("Starting the orchestration process inside the Agent Orchestrator.")
+        
             # Step 1: Planning
             print("\n [Step 1] planning...")
             plan_template = PromptTemplate.from_template(PLANNING_PROMPT)
@@ -76,6 +83,9 @@ class AgentOrchestrator:
             translation_template = PromptTemplate.from_template(TRANSLATION_PROMPT)
             translation_chain = translation_template | self.llm
             final_report = translation_chain.invoke({"english_report": english_report})
+
+            # Log the end of the orchestration process
+            self.search_tool.log_step("Final reasoning engine response received.")
 
             return {
                 "topic": topic,
