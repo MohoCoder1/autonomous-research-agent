@@ -2,8 +2,6 @@ import os
 import sys
 from typing import Any, Dict, Optional
 
-# Add the parent directory to sys.path
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from langchain_ollama import OllamaLLM
 from langchain_core.prompts import PromptTemplate

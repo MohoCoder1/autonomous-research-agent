@@ -4,7 +4,10 @@ import json
 from agent.orchestrator import AgentOrchestrator
 from tools.search_tool import WebSearchTool
 
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+if current_dir not in sys.path:
+    sys.path.insert(0, current_dir)
 
 
 def save_report_with_bonus_modes(data: dict, filename: str, mode: str = "detailed", scratchpad_logs: list = None):
@@ -92,8 +95,11 @@ def save_report_with_bonus_modes(data: dict, filename: str, mode: str = "detaile
 
 
 if __name__ == "__main__":
-    target_topic = "Impact of Artificial Intelligence on the software development job market landscape in 2026"
-    # target_topic = "Next-generation solid-state battery updates in 2026"
+    # target_topic = "Impact of Artificial Intelligence on the software development job market landscape in 2026"
+    target_topic = "Next-generation solid-state battery updates in 2026"
+
+    # Clear scratchpad before starting a new topic research
+    WebSearchTool.clear_scratchpad()
     
     search_tool_instance = WebSearchTool()
     search_tool_instance.log_step("Starting the orchestration process in the main system file.")

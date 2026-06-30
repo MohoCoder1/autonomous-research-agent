@@ -1,10 +1,4 @@
-import os
-import sys
 from datetime import datetime
-
-# add the parent directory to sys.path to allow importing from config.py
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
 from config import Config
 from ddgs import DDGS
 
@@ -15,12 +9,17 @@ class WebSearchTool:
     and log internal transitions in a short-term scratchpad memory.
     """
 
+    # [bonus] short-term memory to save steps taken by the tool
+    scratchpad = []
+
+    @classmethod
+    def clear_scratchpad(cls):
+        """Clear the scratchpad for a new topic."""
+        cls.scratchpad.clear()
+
     def __init__(self):
         # getting the max search results from the config file
         self.max_results = Config.MAX_SEARCH_RESULTS
-        
-        # [bonus] short-term memory to save steps taken by the tool
-        self.scratchpad = []
         
         # trusted domains for ranking the quality of resources
         self.trusted_domains = ["medium.com", "github.com", "arxiv.org", "techcrunch.com", "wikipedia.org", "reuters.com"]
@@ -28,7 +27,7 @@ class WebSearchTool:
     def log_step(self, message: str):
         """[bonus] log steps taken by the tool"""
         timestamp = datetime.now().strftime("%H:%M:%S")
-        self.scratchpad.append(f"[{timestamp}] {message}")
+        WebSearchTool.scratchpad.append(f"[{timestamp}] {message}")
 
     def evaluate_and_rank_sources(self, raw_results: list) -> list:
         """[bonus] rank sources by the quality of resources"""
