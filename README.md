@@ -8,19 +8,23 @@
 
 ``` structure 
 ├── agent/
-│   ├── orchestrator.py      # Multi-agent workflow execution & loop control
+│   ├── __init__.py          # Marks directory as a Python sub-package
+│   ├── orchestrator.py      # Single-agent loop control & sequential tool orchestration
 │   └── prompts.py           # Structured systemic instructions & reasoning frames
 ├── tools/
+│   ├── __init__.py          # Marks directory as a Python sub-package
 │   ├── search_tool.py       # WebSearchTool with dynamic ranking & scratchpad
 │   └── crawler_tool.py      # Core content scraper and extractor
 ├── tests/
-│   ├── test_agent.py        # Automated test suites for validation
+│   ├── __init__.py          # Marks directory as a Python sub-package
+│   └── test_agent.py        # Automated test suites for validation
 ├── config.py                # Global hyperparameters & model configurations
 ├── .env.example             # Template for localized environment variables
 ├── .gitignore               # Strict exclusion matrix for local cache & secrets
 ├── main.py                  # Entry-point and multi-format pipeline exporter
 ├── outputs/                 # Stored artifacts & execution timeline visuals
-└── Dockerfile               # Containerization blueprint
+├── Dockerfile               # Containerization blueprint for the Python application
+└── docker-compose.yml       # Multi-container orchestration (Agent + Ollama Healthcheck)
 ```
 
 ## 🧠 Architecture Choices & Why They Matter
