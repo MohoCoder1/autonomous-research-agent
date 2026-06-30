@@ -24,7 +24,9 @@
 ├── main.py                  # Entry-point and multi-format pipeline exporter
 ├── outputs/                 # Stored artifacts & execution timeline visuals
 ├── Dockerfile               # Containerization blueprint for the Python application
-└── docker-compose.yml       # Multi-container orchestration (Agent + Ollama Healthcheck)
+├── docker-compose.yml       # Multi-container orchestration (Agent + Ollama Healthcheck)
+├── requirements.txt         # Core production and development dependencies
+└── README.md                # System documentation & architectural blueprint
 ```
 
 ## 🧠 Architecture Choices & Why They Matter
